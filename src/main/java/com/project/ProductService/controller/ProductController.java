@@ -3,6 +3,7 @@ package com.project.ProductService.controller;
 import com.project.ProductService.model.ProductRequest;
 import com.project.ProductService.model.ProductResponse;
 import com.project.ProductService.service.ProductService;
+import jakarta.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,16 @@ public class ProductController {
                 = productService.getProductById(productId);
 
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
+    }
+
+    @PutMapping("/reduceQuantity/{id}")
+    public ResponseEntity<Void> reduceQuantity(
+            @PathVariable("id") long productId,
+            @RequestParam long quantity
+    ) {
+            productService.reduceQuantity(productId,quantity);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }
